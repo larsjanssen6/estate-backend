@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	    newUser.setAddress(user.getAddress());
 	    newUser.setBirthdate(user.getBirthdate());
 	    newUser.setCity(user.getCity());
-	    newUser.setDate_joined(user.getDate_joined());
+	    newUser.setDate_joined(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 	    newUser.setId(user.getId());
 	    newUser.setFirst_name(user.getFirst_name());
 	    newUser.setSurname(user.getSurname());
