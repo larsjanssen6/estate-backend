@@ -12,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    @Column
+    @Column(unique=true)
     private String username;
     @Column
     @JsonIgnore
@@ -37,7 +37,7 @@ public class User {
     private Date date_joined;
     @Column
     private Date birthdate;
-    
+
     public long getId() {
         return id;
     }
