@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.devglan.model.LoginUser;
+import com.devglan.model.UserDto;
 import com.google.gson.Gson;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -19,6 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Random;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -51,6 +54,32 @@ public class UserControllerTest {
     @Test
     public void AuthenticationGetUserIsFalse() throws Exception {
         this.mockMvc.perform(get("/users/1")).andDo(print()).andExpect(status().is(401));
+    }
+
+    @Test
+    public void AuthenticationSignUpIsOk() throws Exception {
+        setToken();
+        UserDto testUser = new UserDto();
+        String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder userName = new StringBuilder();
+        Random rnd = new Random();
+        while (userName.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * CHARS.length());
+            userName.append(CHARS.charAt(index));
+        }
+        testUser.setUsername("testUser" + userName.toString());
+        testUser.setPassword(userName.toString());
+        Gson gson = new Gson();
+        String json = gson.toJson(testUser);
+        this.mockMvc.perform(post("/signup").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void AuthenticationSignUpIsFalse() throws Exception {
+        UserDto testUser = new UserDto();
+        Gson gson = new Gson();
+        String json = gson.toJson(testUser);
+        this.mockMvc.perform(post("/signup").contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print()).andExpect(status().is(401));
     }
 
     @Test
