@@ -10,13 +10,11 @@
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:1.5.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.5.8.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:1.5.8.RELEASE" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.11" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.11" />
           <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.25" />
           <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.25" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.12.RELEASE" />
           <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.17" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.5.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.5.23" />
@@ -67,6 +65,8 @@
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.44" />
           <element id="library" level="project" name="Maven: commons-dbcp:commons-dbcp:1.4" />
           <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.6" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.8.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.12.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">
