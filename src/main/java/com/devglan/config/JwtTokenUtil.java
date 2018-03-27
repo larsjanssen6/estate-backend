@@ -1,5 +1,6 @@
 package com.devglan.config;
 
+import com.devglan.model.Role;
 import com.devglan.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -45,13 +46,13 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public String generateToken(User user) {
-        return doGenerateToken(user.getUsername());
+        return doGenerateToken(user.getUsername(),user.getRole_id());
     }
 
-    private String doGenerateToken(String subject) {
+    private String doGenerateToken(String subject, Role role) {
 
         Claims claims = Jwts.claims().setSubject(subject);
-        claims.put("scopes", Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        claims.put("scopes", Arrays.asList(new SimpleGrantedAuthority(role.name())));
 
         return Jwts.builder()
                 .setClaims(claims)

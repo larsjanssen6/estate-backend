@@ -1,9 +1,13 @@
 package com.devglan.controller;
 
+import com.devglan.model.Role;
 import com.devglan.model.User;
 import com.devglan.model.UserDto;
 import com.devglan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +39,17 @@ public class UserController {
     @RequestMapping(value = "/users/deleteuser/{id}", method = RequestMethod.POST)
     public boolean deleteUser(@PathVariable(value = "id") Long id) {return userService.delete(id);}
 
+    @RequestMapping(value = "/users/promoteuser", method = RequestMethod.POST)
+    public ResponseEntity<?> promoteUser(@RequestBody UserDto user) {
+        if(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString() == "Admin"){
+            user.setRole(Role.Admin);
+                return ResponseEntity.ok(userService.update(user));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+    }
     @CrossOrigin
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public User saveUser(@RequestBody UserDto user){
