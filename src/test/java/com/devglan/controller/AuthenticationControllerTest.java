@@ -32,8 +32,8 @@ public class AuthenticationControllerTest {
     @Test
     public void AuthenticationIsOk() throws Exception {
         LoginUser user = new LoginUser();
-        user.setUsername("root");
-        user.setPassword("Wachtwoord2");
+        user.setUsername("Alex");
+        user.setPassword("Alex");
         Gson gson = new Gson();
         String json = gson.toJson(user);
 
