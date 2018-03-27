@@ -27,6 +27,10 @@ public class UserController {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/users/deleteuser/{id}", method = RequestMethod.POST)
+    public boolean deleteUser(@PathVariable(value = "id") Long id) {return userService.delete(id);}
+
+    @CrossOrigin
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public User saveUser(@RequestBody UserDto user){
         return userService.save(user);
