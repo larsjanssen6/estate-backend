@@ -78,4 +78,23 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	    newUser.setProfesion(user.getProfesion());
         return userDao.save(newUser);
     }
+
+	@Override
+	public User update(UserDto user) {
+		User currUser = this.findById(user.getId());
+
+		currUser.setUsername(user.getUsername());
+		currUser.setAddress(user.getAddress());
+		currUser.setBirthdate(user.getBirthdate());
+		currUser.setCity(user.getCity());
+		currUser.setId(user.getId());
+		currUser.setFirst_name(user.getFirst_name());
+		currUser.setSurname(user.getSurname());
+		currUser.setRole_id(user.getRole_id());
+		currUser.setStatus_id(user.getStatus_id());
+		currUser.setZipcode(user.getZipcode());
+		currUser.setProfesion(user.getProfesion());
+
+		return userDao.save(currUser);
+	}
 }

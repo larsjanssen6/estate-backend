@@ -27,6 +27,12 @@ public class UserController {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/alex", method = RequestMethod.POST)
+    public User update(@RequestBody UserDto user){
+        return userService.update(user);
+    }
+
+    @CrossOrigin
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public User saveUser(@RequestBody UserDto user){
         return userService.save(user);
