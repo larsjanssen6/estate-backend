@@ -7,9 +7,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.devglan.model.LoginUser;
+import com.devglan.model.User;
 import com.devglan.model.UserDto;
+import com.devglan.service.UserService;
 import com.google.gson.Gson;
 import org.json.JSONObject;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +34,31 @@ public class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private UserService userService;
+    private User userDto;
     private String token;
-
+    @Before
+    public void register() throws Exception {
+        UserDto userDto = new UserDto();
+        userDto.setUsername("UnitTestUser123456789");
+        userDto.setPassword("UnitTestPassword");
+        this.userDto = userService.save(userDto);
+        LoginUser user = new LoginUser();
+        user.setUsername(userDto.getUsername());
+        user.setPassword("UnitTestPassword");
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        MvcResult result = this.mockMvc.perform(post("/token/generate-token")
+                .contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isOk()).andReturn();
+        String jsonString = result.getResponse().getContentAsString();
+        JSONObject root = new JSONObject(jsonString);
+        this.token = root.getString("token");
+        System.out.println("token: " + root.getString("token"));
+    }
     @Test
     public void AuthenticationGetUsersIsOk() throws Exception {
-        setToken();
         this.mockMvc.perform(get("/users").header("Authorization", "Bearer " + token))
                 .andDo(print()).andExpect(status().isOk());
     }
@@ -46,7 +70,6 @@ public class UserControllerTest {
 
     @Test
     public void AuthenticationGetUserIsOk() throws Exception {
-        setToken();
         this.mockMvc.perform(get("/users/1").header("Authorization", "Bearer " + token))
                 .andDo(print()).andExpect(status().isOk());
     }
@@ -58,7 +81,6 @@ public class UserControllerTest {
 
     @Test
     public void AuthenticationSignUpIsOk() throws Exception {
-        setToken();
         UserDto testUser = new UserDto();
         String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder userName = new StringBuilder();
@@ -84,28 +106,15 @@ public class UserControllerTest {
 
     @Test
     public void GetUsers() throws Exception {
-        setToken();
         this.mockMvc.perform(get("/users").header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isArray());
     }
     @Test
     public void GetUser() throws Exception {
-        setToken();
         this.mockMvc.perform(get("/users/1").header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
     }
-
-    private void setToken() throws Exception {
-        LoginUser user = new LoginUser();
-        user.setUsername("Alex");
-        user.setPassword("Alex");
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-
-        MvcResult result = this.mockMvc.perform(post("/token/generate-token")
-                .contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(status().isOk()).andReturn();
-        String jsonString = result.getResponse().getContentAsString();
-        JSONObject root = new JSONObject(jsonString);
-        this.token = root.getString("token");
-        System.out.println("token: " + root.getString("token"));
+    @After
+    public void deleteLoginUser()
+    {
+        this.userService.delete(this.userDto.getId());
     }
 }
