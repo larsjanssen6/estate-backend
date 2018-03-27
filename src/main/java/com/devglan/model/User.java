@@ -30,7 +30,8 @@ public class User {
     @Column
     private String profesion;
     @Column
-    private int role_id;
+    @Enumerated(EnumType.ORDINAL)
+    private Role role;
     @Column
     private int status_id;
     @Column
@@ -110,12 +111,12 @@ public class User {
         this.profesion = profesion;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public Role getRole_id() {
+        return role;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setRole_id(Role role) {
+        this.role = role;
     }
 
     public int getStatus_id() {
