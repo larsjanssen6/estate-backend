@@ -121,4 +121,8 @@ public class UserDto {
 	    public void setBirthdate(Date birthdate) {
 	        this.birthdate = birthdate;
 	    }
+
+	public Role getRole_id() {
+		return role;
+	}
 }
