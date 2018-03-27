@@ -13,7 +13,7 @@ public class UserDto {
 	    private String zipcode;
 	    private String city;
 	    private String profesion;
-	    private int role_id;
+	    private Role role;
 	    private int status_id;
 	    private Date date_joined;
 	    private Date birthdate;
@@ -90,12 +90,12 @@ public class UserDto {
 	        this.profesion = profesion;
 	    }
 
-	    public int getRole_id() {
-	        return role_id;
+	    public Role getRole() {
+	        return role;
 	    }
 
-	    public void setRole_id(int role_id) {
-	        this.role_id = role_id;
+	    public void setRole(Role role_id) {
+	        this.role = role_id;
 	    }
 
 	    public int getStatus_id() {
