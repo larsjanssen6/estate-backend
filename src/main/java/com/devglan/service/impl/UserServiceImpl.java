@@ -1,6 +1,7 @@
 package com.devglan.service.impl;
 
 import com.devglan.dao.UserDao;
+import com.devglan.model.Role;
 import com.devglan.model.User;
 import com.devglan.model.UserDto;
 import com.devglan.service.UserService;
@@ -102,5 +103,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		currUser.setProfesion(user.getProfesion());
 
 		return userDao.save(currUser);
+	}
+
+	@Override
+	public void removeAdmin(String name) {
+		User user = userDao.findByUsername(name);
+		user.setRole_id(Role.Member);
+		userDao.save(user);
 	}
 }

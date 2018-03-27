@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.devglan.model.LoginUser;
+import com.devglan.model.Role;
 import com.devglan.model.User;
 import com.devglan.model.UserDto;
 import com.devglan.service.UserService;
@@ -35,8 +36,9 @@ public class AuthenticationControllerTest {
     @Before
     public void register(){
         UserDto userDto = new UserDto();
-        userDto.setUsername("UnitTestUser123456789");
+        userDto.setUsername("UnitTestUser");
         userDto.setPassword("UnitTestPassword");
+        userDto.setRole(Role.Admin);
         this.userDto = userService.save(userDto);
     }
     @Test

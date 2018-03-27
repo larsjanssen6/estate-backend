@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.devglan.model.LoginUser;
+import com.devglan.model.Role;
 import com.devglan.model.User;
 import com.devglan.model.UserDto;
 import com.devglan.service.UserService;
@@ -38,11 +39,13 @@ public class UserControllerTest {
     private UserService userService;
     private User userDto;
     private String token;
+    private String createdUser;
     @Before
     public void register() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("UnitTestUser123456789");
+        userDto.setUsername("UnitTestUser");
         userDto.setPassword("UnitTestPassword");
+        userDto.setRole(Role.Admin);
         this.userDto = userService.save(userDto);
         LoginUser user = new LoginUser();
         user.setUsername(userDto.getUsername());
@@ -70,27 +73,21 @@ public class UserControllerTest {
 
     @Test
     public void AuthenticationGetUserIsOk() throws Exception {
-        this.mockMvc.perform(get("/users/1").header("Authorization", "Bearer " + token))
+        this.mockMvc.perform(get("/users/"+ this.userDto.getId()).header("Authorization", "Bearer " + token))
                 .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     public void AuthenticationGetUserIsFalse() throws Exception {
-        this.mockMvc.perform(get("/users/1")).andDo(print()).andExpect(status().is(401));
+        this.mockMvc.perform(get("/users/" + this.userDto.getId())).andDo(print()).andExpect(status().is(401));
     }
 
     @Test
     public void AuthenticationSignUpIsOk() throws Exception {
         UserDto testUser = new UserDto();
-        String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder userName = new StringBuilder();
-        Random rnd = new Random();
-        while (userName.length() < 18) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * CHARS.length());
-            userName.append(CHARS.charAt(index));
-        }
-        testUser.setUsername("testUser" + userName.toString());
-        testUser.setPassword(userName.toString());
+        testUser.setUsername("testUser8569");
+        testUser.setPassword("testUser8569");
+        createdUser = "testUser8569";
         Gson gson = new Gson();
         String json = gson.toJson(testUser);
         this.mockMvc.perform(post("/signup").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print()).andExpect(status().isOk());
@@ -110,19 +107,63 @@ public class UserControllerTest {
     }
     @Test
     public void GetUser() throws Exception {
-        this.mockMvc.perform(get("/users/1").header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
+        this.mockMvc.perform(get("/users/" + this.userDto.getId()).header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
     }
     @Test
     public void DeleteUser() throws Exception {
         UserDto userDto = new UserDto();
-        userDto.setUsername("UnitTestDeleteUser70384");
+        userDto.setUsername("UnitTestDeleteUser");
         userDto.setPassword("UnitTestPassword");
         User deleteUser = userService.save(userDto);
         this.mockMvc.perform(post("/users/deleteuser/" + deleteUser.getId()).header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
+
     }
+
+    @Test
+    public void PromoteUsersIsOk() throws Exception {
+        UserDto userDto = new UserDto();
+        userDto.setUsername("UnitTestPromoteUser");
+        userDto.setPassword("UnitTestPassword");
+        userDto.setRole(Role.Member);
+        User user = userService.save(userDto);
+        userDto.setId(user.getId());
+        createdUser = "UnitTestPromoteUser";
+        Gson gson = new Gson();
+        String json = gson.toJson(userDto);
+        this.mockMvc.perform(post("/users/promoteuser").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json))
+                .andDo(print()).andExpect(status().is(200));
+
+    }
+    @Test
+    public void PromoteUsersIsFalse() throws Exception {
+        UserDto userPromote = new UserDto();
+        userPromote.setUsername("UnitTestPromoteUser");
+        userPromote.setPassword("UnitTestPassword");
+        userPromote.setRole(Role.Member);
+        User user = userService.save(userPromote);
+        userPromote.setId(user.getId());
+        Gson gson = new Gson();
+        String json = gson.toJson(userPromote);
+        this.createdUser = "UnitTestPromoteUser";
+        UserDto userDto = new UserDto();
+        userDto.setUsername("UnitTestUser");
+        userDto.setPassword("UnitTestPassword");
+        userDto.setRole(Role.Member);
+        userDto.setId(this.userDto.getId());
+        userService.update(userDto);
+        this.mockMvc.perform(post("/users/promoteuser").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json))
+                .andDo(print()).andExpect(status().is(401));
+
+    }
+
+
     @After
     public void deleteLoginUser()
     {
+        if (createdUser != null){
+            this.userService.delete(this.userService.findOne(createdUser).getId());
+            createdUser = null;
+        }
         this.userService.delete(this.userDto.getId());
     }
 }

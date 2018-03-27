@@ -36,19 +36,27 @@ public class UserController {
         return userService.update(user);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/users/deleteuser/{id}", method = RequestMethod.POST)
     public boolean deleteUser(@PathVariable(value = "id") Long id) {return userService.delete(id);}
 
+    @CrossOrigin
     @RequestMapping(value = "/users/promoteuser", method = RequestMethod.POST)
     public ResponseEntity<?> promoteUser(@RequestBody UserDto user) {
         if(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString() == "Admin"){
+            userService.removeAdmin(SecurityContextHolder.getContext().getAuthentication().getName());
             user.setRole(Role.Admin);
-                return ResponseEntity.ok(userService.update(user));
+            return ResponseEntity.status(HttpStatus.OK).body(userService.update(user));
         }
         else{
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
+    }
+    @CrossOrigin
+    @RequestMapping(value="/user", method = RequestMethod.GET)
+    public User getUserLoggedIn(){
+        return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
     }
     @CrossOrigin
     @RequestMapping(value="/signup", method = RequestMethod.POST)
