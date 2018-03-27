@@ -112,6 +112,14 @@ public class UserControllerTest {
     public void GetUser() throws Exception {
         this.mockMvc.perform(get("/users/1").header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
     }
+    @Test
+    public void DeleteUser() throws Exception {
+        UserDto userDto = new UserDto();
+        userDto.setUsername("UnitTestDeleteUser70384");
+        userDto.setPassword("UnitTestPassword");
+        User deleteUser = userService.save(userDto);
+        this.mockMvc.perform(post("/users/deleteuser/" + deleteUser.getId()).header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
+    }
     @After
     public void deleteLoginUser()
     {
