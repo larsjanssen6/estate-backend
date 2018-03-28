@@ -69,7 +69,7 @@ public class AuthenticationControllerTest {
     @After
     public void deleteUser()
     {
-       //this.userService.delete(this.userDto.getId());
+       this.userService.delete(this.userDto.getId());
     }
 
 }

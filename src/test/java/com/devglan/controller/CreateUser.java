@@ -32,10 +32,7 @@ import java.util.Calendar;
 public class CreateUser {
 
     @Autowired
-    private MockMvc mockMvc;
-    @Autowired
     private UserService userService;
-    private User userDto;
 
     @Test
     public void register() {
@@ -53,6 +50,6 @@ public class CreateUser {
         userDto.setStatus_id(1);
         userDto.setZipcode("5000");
         userDto.setProfession("ICT-er");
-        this.userDto = userService.save(userDto);
+        userService.save(userDto);
     }
 }
