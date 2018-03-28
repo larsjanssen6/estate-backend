@@ -28,9 +28,9 @@ public class User {
     @Column
     private String city;
     @Column
-    private String profesion;
+    private String profession;
     @Column
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Role role;
     @Column
     private int status_id;
@@ -103,19 +103,19 @@ public class User {
         this.city = city;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public String getProfession() {
+        return profession;
     }
 
-    public void setProfesion(String profesion) {
-        this.profesion = profesion;
+    public void setProfession(String profession) {
+        this.profession = profession;
     }
 
-    public Role getRole_id() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole_id(Role role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

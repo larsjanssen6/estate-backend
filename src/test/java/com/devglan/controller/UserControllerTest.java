@@ -129,16 +129,6 @@ public class UserControllerTest {
         createdUser = "UnitTestPromoteUser";
     }
 
-    private void setToken() throws Exception {
-        LoginUser user = new LoginUser();
-        user.setUsername("sven");
-        user.setPassword("sven");
-        Gson gson = new Gson();
-        String json = gson.toJson(userDto);
-        this.mockMvc.perform(post("/users/promoteuser").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json))
-                .andDo(print()).andExpect(status().is(200));
-
-    }
     @Test
     public void PromoteUsersIsFalse() throws Exception {
         UserDto userPromote = new UserDto();

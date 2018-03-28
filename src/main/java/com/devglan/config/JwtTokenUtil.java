@@ -46,7 +46,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public String generateToken(User user) {
-        return doGenerateToken(user.getUsername(),user.getRole_id());
+        return doGenerateToken(user.getUsername(),user.getRole());
     }
 
     private String doGenerateToken(String subject, Role role) {

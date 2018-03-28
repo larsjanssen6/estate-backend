@@ -46,8 +46,6 @@ public class AuthenticationControllerTest {
         LoginUser user = new LoginUser();
         user.setUsername(this.userDto.getUsername());
         user.setPassword("UnitTestPassword");
-        user.setUsername("sven");
-        user.setPassword("sven");
         Gson gson = new Gson();
         String json = gson.toJson(user);
 
@@ -71,7 +69,7 @@ public class AuthenticationControllerTest {
     @After
     public void deleteUser()
     {
-        this.userService.delete(this.userDto.getId());
+       this.userService.delete(this.userDto.getId());
     }
 
 }

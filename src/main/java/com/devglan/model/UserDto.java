@@ -12,7 +12,7 @@ public class UserDto {
 	    private String address;
 	    private String zipcode;
 	    private String city;
-	    private String profesion;
+	    private String profession;
 	    private Role role;
 	    private int status_id;
 	    private Date date_joined;
@@ -82,12 +82,12 @@ public class UserDto {
 	        this.city = city;
 	    }
 
-	    public String getProfesion() {
-	        return profesion;
+	    public String getProfession() {
+	        return profession;
 	    }
 
-	    public void setProfesion(String profesion) {
-	        this.profesion = profesion;
+	    public void setProfession(String profession) {
+	        this.profession = profession;
 	    }
 
 	    public Role getRole() {
