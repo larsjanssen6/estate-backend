@@ -7,6 +7,7 @@ import com.devglan.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class NoteSerivceImpl  implements NoteService{
 
     @Override
     public List<Note> getNotes(long UserId) {
-        return null;
+        List<Note> list = new ArrayList<>();
+        noteDao.findNotesByuser_id(UserId).addAll(list);
+        return list;
     }
 }

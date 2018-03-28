@@ -6,6 +6,8 @@ import com.devglan.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/note")
@@ -21,6 +23,11 @@ public class NoteController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public boolean deleteNote(@PathVariable (value = "id")long noteId){
         return noteService.delete(noteId);
+    }
+
+    @RequestMapping(value = "/notes/{user_id}", method = RequestMethod.POST)
+    public List<Note> getNotes(@PathVariable (value = "user_id")long userId){
+        return noteService.getNotes(userId);
     }
 
 
