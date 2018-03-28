@@ -1,7 +1,4 @@
 
-<<<<<<< HEAD
-# Created by https://www.gitignore.io/api/java,java-web
-=======
 # Created by https://www.gitignore.io/api/java,maven,eclipse,java-web,intellij
 
 ### Eclipse ###
@@ -127,7 +124,6 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/sonarlint
->>>>>>> 03770494f5ef74e8ff6ac458f6a2cfe359802a3f
 
 ### Java ###
 # Compiled class file
@@ -157,10 +153,6 @@ hs_err_pid*
 ## ignoring target file
 target/
 
-<<<<<<< HEAD
-
-# End of https://www.gitignore.io/api/java,java-web
-=======
 ### Maven ###
 pom.xml.tag
 pom.xml.releaseBackup
@@ -176,4 +168,3 @@ buildNumber.properties
 
 
 # End of https://www.gitignore.io/api/java,maven,eclipse,java-web,intellij
->>>>>>> 03770494f5ef74e8ff6ac458f6a2cfe359802a3f
