@@ -37,7 +37,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	private List<SimpleGrantedAuthority> getAuthority(User user) {
-		return Arrays.asList(new SimpleGrantedAuthority(user.getRole_id().toString()));
+		System.out.println(user.getRole().name());
+		return Arrays.asList(new SimpleGrantedAuthority(user.getRole().toString()));
 	}
 
 	public List<User> findAll() {
@@ -79,10 +80,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	    newUser.setId(user.getId());
 	    newUser.setFirst_name(user.getFirst_name());
 	    newUser.setSurname(user.getSurname());
-	    newUser.setRole_id(user.getRole());
+	    newUser.setRole(user.getRole());
 	    newUser.setStatus_id(user.getStatus_id());
 	    newUser.setZipcode(user.getZipcode());
-	    newUser.setProfesion(user.getProfesion());
+	    newUser.setProfession(user.getProfession());
         return userDao.save(newUser);
     }
 
@@ -97,10 +98,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		currUser.setId(user.getId());
 		currUser.setFirst_name(user.getFirst_name());
 		currUser.setSurname(user.getSurname());
-		currUser.setRole_id(user.getRole_id());
+		currUser.setRole(user.getRole_id());
 		currUser.setStatus_id(user.getStatus_id());
 		currUser.setZipcode(user.getZipcode());
-		currUser.setProfesion(user.getProfesion());
+		currUser.setProfession(user.getProfession());
 
 		return userDao.save(currUser);
 	}
@@ -108,7 +109,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Override
 	public void removeAdmin(String name) {
 		User user = userDao.findByUsername(name);
-		user.setRole_id(Role.Member);
+		user.setRole(Role.Member);
 		userDao.save(user);
 	}
 }

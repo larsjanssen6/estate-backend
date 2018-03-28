@@ -23,54 +23,36 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthenticationControllerTest {
+public class CreateUser {
 
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private UserService userService;
     private User userDto;
-    @Before
-    public void register(){
+
+    @Test
+    public void register() {
         UserDto userDto = new UserDto();
-        userDto.setUsername("UnitTestUser");
-        userDto.setPassword("UnitTestPassword");
+        //als je wil mag je dit veranderen
+        userDto.setUsername("root");
+        userDto.setPassword("1234");
         userDto.setRole(Role.Admin);
+        userDto.setAddress("Straatweg 1");
+        userDto.setBirthdate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        userDto.setCity("Tilburg");
+        userDto.setDate_joined(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        userDto.setFirst_name("test");
+        userDto.setSurname("persoon");
+        userDto.setStatus_id(1);
+        userDto.setZipcode("5000");
+        userDto.setProfession("ICT-er");
         this.userDto = userService.save(userDto);
     }
-    @Test
-    public void AuthenticationIsOk() throws Exception {
-        LoginUser user = new LoginUser();
-        user.setUsername(this.userDto.getUsername());
-        user.setPassword("UnitTestPassword");
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-
-        this.mockMvc.perform(post("/token/generate-token")
-                .contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void AuthenticationIsFalse() throws Exception {
-        LoginUser user = new LoginUser();
-        user.setUsername(this.userDto.getUsername());
-        user.setPassword("wrongPassword");
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-
-        this.mockMvc.perform(post("/token/generate-token")
-                .contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(status().is(401));
-    }
-    @After
-    public void deleteUser()
-    {
-       //this.userService.delete(this.userDto.getId());
-    }
-
 }
-
