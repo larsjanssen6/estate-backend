@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface NoteService {
 
-    boolean create(NoteDto note);
+    Note create(NoteDto note);
     boolean delete(long NoteId);
     List<Note> getNotes(long UserId);
 
