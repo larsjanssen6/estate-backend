@@ -44,13 +44,10 @@ public class AuthenticationControllerTest {
     @Test
     public void AuthenticationIsOk() throws Exception {
         LoginUser user = new LoginUser();
-<<<<<<< Updated upstream
         user.setUsername(this.userDto.getUsername());
         user.setPassword("UnitTestPassword");
-=======
         user.setUsername("sven");
         user.setPassword("sven");
->>>>>>> Stashed changes
         Gson gson = new Gson();
         String json = gson.toJson(user);
 
