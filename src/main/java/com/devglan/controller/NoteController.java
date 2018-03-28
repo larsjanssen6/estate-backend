@@ -18,5 +18,10 @@ public class NoteController {
         return noteService.create(note);
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public boolean deleteNote(@PathVariable (value = "id")long noteId){
+        return noteService.delete(noteId);
+    }
+
 
 }
