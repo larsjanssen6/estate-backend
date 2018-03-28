@@ -117,6 +117,7 @@ public class UserControllerTest {
         User deleteUser = userService.save(userDto);
         this.mockMvc.perform(post("/users/deleteuser/" + deleteUser.getId()).header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
 
+<<<<<<< Updated upstream
     }
 
     @Test
@@ -128,6 +129,12 @@ public class UserControllerTest {
         User user = userService.save(userDto);
         userDto.setId(user.getId());
         createdUser = "UnitTestPromoteUser";
+=======
+    private void setToken() throws Exception {
+        LoginUser user = new LoginUser();
+        user.setUsername("sven");
+        user.setPassword("sven");
+>>>>>>> Stashed changes
         Gson gson = new Gson();
         String json = gson.toJson(userDto);
         this.mockMvc.perform(post("/users/promoteuser").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json))
