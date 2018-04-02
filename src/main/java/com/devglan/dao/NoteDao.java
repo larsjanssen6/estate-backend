@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface NoteDao extends CrudRepository<Note, Long> {
-    List<Note> findNotesByuser_id(long user_id);
+    //List<Note> findNotesByuser_id(long user_id);
 }
