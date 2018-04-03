@@ -25,9 +25,9 @@ public class NoteController {
         return noteService.delete(noteId);
     }
 
-    @RequestMapping(value = "/notes/{user_id}", method = RequestMethod.POST)
-    public List<Note> getNotes(@PathVariable (value = "user_id")long userId){
-        return noteService.getNotes(userId);
+    @RequestMapping(value = "/notes", method = RequestMethod.POST)
+    public List<Note> getNotes(){
+        return noteService.findAll();
     }
 
 
