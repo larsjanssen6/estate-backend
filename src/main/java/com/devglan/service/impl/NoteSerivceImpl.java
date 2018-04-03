@@ -47,6 +47,7 @@ public class NoteSerivceImpl  implements NoteService{
     public List<Note> findAll() {
         List<Note> list = new ArrayList<>();
         noteDao.findAll().iterator().forEachRemaining(list::add);
+        //noteDao.findNotesByuser_id(UserId).addAll(list);
         return list;
     }
 }
