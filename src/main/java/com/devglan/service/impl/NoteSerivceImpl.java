@@ -39,7 +39,7 @@ public class NoteSerivceImpl  implements NoteService{
     @Override
     public List<Note> getNotes(long UserId) {
         List<Note> list = new ArrayList<>();
-        noteDao.findNoteByUser_id(UserId).addAll(list);
+        noteDao.findNoteByUser_id(UserId).iterator().forEachRemaining(list::add);
         return list;
     }
 
