@@ -21,7 +21,9 @@ public class NoteController {
     private UserService userService;
 
     @RequestMapping(value="/create", method = RequestMethod.POST)
-    public Note createNote(@RequestBody NoteDto note){
+    public Note createNote(@RequestBody NoteDto note)
+    {
+        note.setId(userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         return noteService.create(note);
     }
 
