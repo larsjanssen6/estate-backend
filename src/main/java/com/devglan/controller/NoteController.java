@@ -3,7 +3,9 @@ package com.devglan.controller;
 import com.devglan.model.Note;
 import com.devglan.model.NoteDto;
 import com.devglan.service.NoteService;
+import com.devglan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,9 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value="/create", method = RequestMethod.POST)
     public Note createNote(@RequestBody NoteDto note){
         return noteService.create(note);
@@ -25,9 +30,13 @@ public class NoteController {
         return noteService.delete(noteId);
     }
 
-    @RequestMapping(value = "/notes/{user_id}", method = RequestMethod.POST)
-    public List<Note> getNotes(@PathVariable (value = "user_id")long user_id){
-        return noteService.getNotes(user_id);
+    @RequestMapping(value = "/notes", method = RequestMethod.POST)
+    public List<Note> getNotes(){
+        return noteService.getNotes(userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+    }
+    @RequestMapping(value = "/allnotes", method = RequestMethod.POST)
+    public List<Note> getAllNotes(){
+        return noteService.findAll();
     }
 
 
