@@ -62,9 +62,6 @@ public class UserController {
     @CrossOrigin
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public User saveUser(@RequestBody UserDto user){
-
-        // Make Status instance
-
         return userService.save(user);
     }
 
