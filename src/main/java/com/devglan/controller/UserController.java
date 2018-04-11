@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/alex", method = RequestMethod.POST)
+    @RequestMapping(value = "/update-user", method = RequestMethod.POST)
     public User update(@RequestBody UserDto user){
         return userService.update(user);
     }
