@@ -101,6 +101,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		currUser.setRole(user.getRole_id());
 		currUser.setZipcode(user.getZipcode());
 		currUser.setProfession(user.getProfession());
+		currUser.setInterestdate(user.getInterestdate());
 
 		return userDao.save(currUser);
 	}
