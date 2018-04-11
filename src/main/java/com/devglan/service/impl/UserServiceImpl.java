@@ -80,10 +80,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	    newUser.setFirst_name(user.getFirst_name());
 	    newUser.setSurname(user.getSurname());
 	    newUser.setRole(user.getRole());
-	    newUser.setStatus_id(user.getStatus_id());
 	    newUser.setZipcode(user.getZipcode());
 	    newUser.setProfession(user.getProfession());
-        return userDao.save(newUser);
+		newUser.setInterestdate(user.getInterestdate());
+
+		return userDao.save(newUser);
     }
 
 	@Override
@@ -98,7 +99,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		currUser.setFirst_name(user.getFirst_name());
 		currUser.setSurname(user.getSurname());
 		currUser.setRole(user.getRole_id());
-		currUser.setStatus_id(user.getStatus_id());
 		currUser.setZipcode(user.getZipcode());
 		currUser.setProfession(user.getProfession());
 
