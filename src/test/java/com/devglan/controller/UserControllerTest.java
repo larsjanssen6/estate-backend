@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.sql.Date;
-import java.util.Calendar;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -133,8 +132,7 @@ public class UserControllerTest {
         Gson gson = new Gson();
         String json = gson.toJson(editUser);
         this.mockMvc.perform(post("/update-user").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print()).andExpect(status().isOk());
-
-        }
+    }
 
 
     @Test
@@ -181,8 +179,16 @@ public class UserControllerTest {
     }
 
     @Test
-    public void checkStatus() throws Exception {
-        
+    public void editStatus() throws Exception {
+        UserDto editStatus = new UserDto();
+        editStatus.setId(this.userDto.getId());
+        editStatus.setUsername(this.userDto.getUsername());
+        editStatus.setPassword(this.userDto.getPassword());
+        editStatus.setRole(this.userDto.getRole());
+        editStatus.setInterestdate(this.userDto.getInterestdate());
+        Gson gson = new Gson();
+        String json = gson.toJson(editStatus);
+        this.mockMvc.perform(post("/update-user").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print()).andExpect(status().isOk());
     }
 
 
