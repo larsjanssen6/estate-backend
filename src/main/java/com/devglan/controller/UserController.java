@@ -58,6 +58,7 @@ public class UserController {
     public User getUserLoggedIn(){
         return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
     }
+
     @CrossOrigin
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public User saveUser(@RequestBody UserDto user){

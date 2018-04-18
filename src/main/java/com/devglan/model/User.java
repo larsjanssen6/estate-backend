@@ -33,11 +33,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     @Column
-    private int status_id;
-    @Column
     private Date date_joined;
     @Column
     private Date birthdate;
+    @Column
+    private Date interestdate;
 
     public long getId() {
         return id;
@@ -119,14 +119,6 @@ public class User {
         this.role = role;
     }
 
-    public int getStatus_id() {
-        return status_id;
-    }
-
-    public void setStatus_id(int status_id) {
-        this.status_id = status_id;
-    }
-
     public Date getDate_joined() {
         return date_joined;
     }
@@ -143,6 +135,11 @@ public class User {
         this.birthdate = birthdate;
     }
 
-    
-    
+    public Date getInterestdate() {
+        return interestdate;
+    }
+
+    public void setInterestdate(Date interestdate) {
+        this.interestdate = interestdate;
+    }
 }

@@ -117,6 +117,19 @@ public class UserControllerTest {
         User deleteUser = userService.save(userDto);
         this.mockMvc.perform(post("/users/deleteuser/" + deleteUser.getId()).header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
     }
+    @Test
+    public void EditUser() throws Exception {
+        UserDto editUser = new UserDto();
+        editUser.setId(this.userDto.getId());
+        editUser.setUsername(this.userDto.getUsername());
+        editUser.setPassword(this.userDto.getPassword());
+        editUser.setRole(this.userDto.getRole());
+        Gson gson = new Gson();
+        String json = gson.toJson(editUser);
+        this.mockMvc.perform(post("/update-user").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json)).andDo(print()).andExpect(status().isOk());
+
+        }
+
 
     @Test
     public void PromoteUsersIsOk() throws Exception {

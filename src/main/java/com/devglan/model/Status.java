@@ -11,6 +11,8 @@ public class Status {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+    @Column(nullable = false)
+    private long user_id;
     @Column(unique=true)
     private String content;
     @Column
@@ -27,24 +29,20 @@ public class Status {
     public String getContent() {
         java.sql.Date dateNow = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         if (this.date != null) {
-            if (content == "$INT%")
                 if (dateNow.before(this.date)) {
                     long day = ChronoUnit.DAYS.between(LocalDate.parse(dateNow.toString()), LocalDate.parse(this.date.toString()));
-                    return "geïnteresseerd over " + day + " dag(en).";
-                } else {
-                    return "geïnteresseerd op dit moment";
+                    return "Geïnteresseerd over " + day + " dag(en).";
+                }
+
+                else {
+                    return "Geïnteresseerd op dit moment";
                 }
         }
         return content;
     }
 
     public void setContent(String content) {
-        if (date != null) {
-            this.content = "$INT%";
-        }
-        else {
-            this.content = content;
-        }
+        this.content = content;
     }
 
     public Date getDate() {
@@ -53,6 +51,13 @@ public class Status {
 
     public void setDate(Date date) {
         this.date = date;
-        this.content = "$INT%";
+    }
+
+    public long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 }
