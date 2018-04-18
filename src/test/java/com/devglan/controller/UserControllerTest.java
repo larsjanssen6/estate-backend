@@ -120,13 +120,23 @@ public class UserControllerTest {
 
     @Test
     public void PromoteUsersIsOk() throws Exception {
+        UserDto userPromote = new UserDto();
+        userPromote.setUsername("UnitTestPromoteUser");
+        userPromote.setPassword("UnitTestPassword");
+        userPromote.setRole(Role.Member);
+        User user = userService.save(userPromote);
+        userPromote.setId(user.getId());
+        Gson gson = new Gson();
+        String json = gson.toJson(userPromote);
+        this.createdUser = "UnitTestPromoteUser";
         UserDto userDto = new UserDto();
-        userDto.setUsername("UnitTestPromoteUser");
+        userDto.setUsername("UnitTestUser");
         userDto.setPassword("UnitTestPassword");
-        userDto.setRole(Role.Member);
-        User user = userService.save(userDto);
-        userDto.setId(user.getId());
-        createdUser = "UnitTestPromoteUser";
+        userDto.setRole(Role.Admin);
+        userDto.setId(this.userDto.getId());
+        userService.update(userDto);
+        this.mockMvc.perform(post("/users/promoteuser").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json))
+                .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
