@@ -24,9 +24,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Random;
+import java.sql.Date;
+import java.util.Calendar;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,6 +46,12 @@ public class UserControllerTest {
         userDto.setUsername("UnitTestUser");
         userDto.setPassword("UnitTestPassword");
         userDto.setRole(Role.Admin);
+
+        long now = System.currentTimeMillis();
+        // Add a few days, maybe?
+        Date dt = new Date(now);
+        userDto.setInterestdate(dt);
+
         this.userDto = userService.save(userDto);
         LoginUser user = new LoginUser();
         user.setUsername(userDto.getUsername());
@@ -61,29 +67,29 @@ public class UserControllerTest {
         System.out.println("token: " + root.getString("token"));
     }
     @Test
-    public void AuthenticationGetUsersIsOk() throws Exception {
+    public void authenticationGetUsersIsOk() throws Exception {
         this.mockMvc.perform(get("/users").header("Authorization", "Bearer " + token))
                 .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
-    public void AuthenticationGetUsersIsFalse() throws Exception {
+    public void authenticationGetUsersIsFalse() throws Exception {
         this.mockMvc.perform(get("/users")).andDo(print()).andExpect(status().is(401));
     }
 
     @Test
-    public void AuthenticationGetUserIsOk() throws Exception {
+    public void authenticationGetUserIsOk() throws Exception {
         this.mockMvc.perform(get("/users/"+ this.userDto.getId()).header("Authorization", "Bearer " + token))
                 .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
-    public void AuthenticationGetUserIsFalse() throws Exception {
+    public void authenticationGetUserIsFalse() throws Exception {
         this.mockMvc.perform(get("/users/" + this.userDto.getId())).andDo(print()).andExpect(status().is(401));
     }
 
     @Test
-    public void AuthenticationSignUpIsOk() throws Exception {
+    public void authenticationSignUpIsOk() throws Exception {
         UserDto testUser = new UserDto();
         testUser.setUsername("testUser8569");
         testUser.setPassword("testUser8569");
@@ -94,7 +100,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void AuthenticationSignUpIsFalse() throws Exception {
+    public void authenticationSignUpIsFalse() throws Exception {
         UserDto testUser = new UserDto();
         Gson gson = new Gson();
         String json = gson.toJson(testUser);
@@ -102,7 +108,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void GetUsers() throws Exception {
+    public void getUsers() throws Exception {
         this.mockMvc.perform(get("/users").header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isArray());
     }
     @Test
@@ -110,7 +116,7 @@ public class UserControllerTest {
         this.mockMvc.perform(get("/users/" + this.userDto.getId()).header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
     }
     @Test
-    public void DeleteUser() throws Exception {
+    public void deleteUser() throws Exception {
         UserDto userDto = new UserDto();
         userDto.setUsername("UnitTestDeleteUser");
         userDto.setPassword("UnitTestPassword");
@@ -118,7 +124,7 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/users/deleteuser/" + deleteUser.getId()).header("Authorization", "Bearer " + token)).andExpect(status().isOk()).andExpect(jsonPath("$").isNotEmpty());
     }
     @Test
-    public void EditUser() throws Exception {
+    public void editUser() throws Exception {
         UserDto editUser = new UserDto();
         editUser.setId(this.userDto.getId());
         editUser.setUsername(this.userDto.getUsername());
@@ -132,7 +138,7 @@ public class UserControllerTest {
 
 
     @Test
-    public void PromoteUsersIsOk() throws Exception {
+    public void promoteUsersIsOk() throws Exception {
         UserDto userDto = new UserDto();
         userDto.setUsername("UnitTestPromoteUser");
         userDto.setPassword("UnitTestPassword");
@@ -143,7 +149,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void PromoteUsersIsFalse() throws Exception {
+    public void promoteUsersIsFalse() throws Exception {
         UserDto userPromote = new UserDto();
         userPromote.setUsername("UnitTestPromoteUser");
         userPromote.setPassword("UnitTestPassword");
@@ -162,6 +168,11 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/users/promoteuser").header("Authorization", "Bearer " + token).contentType(MediaType.APPLICATION_JSON).content(json))
                 .andDo(print()).andExpect(status().is(401));
 
+    }
+
+    @Test
+    public void checkStatus() throws Exception {
+        
     }
 
 
