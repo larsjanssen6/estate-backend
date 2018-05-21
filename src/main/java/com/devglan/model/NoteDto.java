@@ -9,6 +9,9 @@ public class NoteDto {
     private long potential_member_id;
     private Date date_created;
     private String content;
+    private Date start;
+    private Date end;
+    private String done;
 
     public long getId() {
         return id;
@@ -49,5 +52,29 @@ public class NoteDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setStartDate(Date date) {
+        this.start = date;
+    }
+
+    public void setEndDate(Date date) {
+        this.end = date;
+    }
+
+    public void setDone(String done) {
+        this.done = done;
+    }
+
+    public String getDone() {
+        return done;
     }
 }

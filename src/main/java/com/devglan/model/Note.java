@@ -15,7 +15,13 @@ public class Note {
     @Column
     private Date date_created;
     @Column
+    private Date start;
+    @Column
+    private Date end;
+    @Column
     private String content;
+    @Column
+    private String done;
 
     public long getId() {
         return id;
@@ -55,5 +61,29 @@ public class Note {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setStartDate(Date date) {
+        this.start = date;
+    }
+
+    public void setEndDate(Date date) {
+        this.end = date;
+    }
+
+    public void setDone(String done) {
+        this.done = done;
+    }
+
+    public String getDone() {
+        return done;
     }
 }
