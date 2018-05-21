@@ -25,6 +25,8 @@ public class NoteSerivceImpl  implements NoteService{
             newNote.setPotentialMemberId(note.getPotential_member_id());
             newNote.setDate_created(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
             newNote.setDone(note.getDone());
+            newNote.setStart(note.getStart());
+            newNote.setEnd(note.getEnd());
             return noteDao.save(newNote);
     }
 

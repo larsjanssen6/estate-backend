@@ -71,11 +71,11 @@ public class Note {
         return end;
     }
 
-    public void setStartDate(Date date) {
+    public void setStart(Date date) {
         this.start = date;
     }
 
-    public void setEndDate(Date date) {
+    public void setEnd(Date date) {
         this.end = date;
     }
 
