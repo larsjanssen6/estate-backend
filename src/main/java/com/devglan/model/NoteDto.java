@@ -6,6 +6,7 @@ public class NoteDto {
 
     private long id;
     private long user_id;
+    private long potential_member_id;
     private Date date_created;
     private String content;
 
@@ -25,6 +26,14 @@ public class NoteDto {
         this.user_id = user_id;
     }
 
+    public void setPotentialMemberId(long id) {
+        this.potential_member_id = id;
+    }
+
+    public long getPotential_member_id() {
+        return potential_member_id;
+    }
+
     public Date getDate_created() {
         return date_created;
     }
@@ -36,6 +45,7 @@ public class NoteDto {
     public String getContent() {
         return content;
     }
+
 
     public void setContent(String content) {
         this.content = content;

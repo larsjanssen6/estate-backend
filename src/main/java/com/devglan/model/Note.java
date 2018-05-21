@@ -11,6 +11,8 @@ public class Note {
     @Column
     private long user_id;
     @Column
+    private long potential_member_id;
+    @Column
     private Date date_created;
     @Column
     private String content;
@@ -25,6 +27,14 @@ public class Note {
 
     public long getUser_id() {
         return user_id;
+    }
+
+    public void setPotentialMemberId(long id) {
+        this.potential_member_id = id;
+    }
+
+    public long getPotential_member_id() {
+        return potential_member_id;
     }
 
     public void setUser_id(long user_id) {
