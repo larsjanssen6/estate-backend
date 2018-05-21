@@ -13,4 +13,5 @@ public interface NoteService {
     boolean delete(long NoteId);
     List<Note> getNotes(long UserId);
     List<Note> findAll();
+    Note update(NoteDto note);
 }

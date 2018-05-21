@@ -26,6 +26,11 @@ public class NoteController {
         note.setUser_id(userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         return noteService.create(note);
     }
+    @CrossOrigin
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Note update(@RequestBody NoteDto note){
+        return noteService.update(note);
+    }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public boolean deleteNote(@PathVariable (value = "id")long noteId){

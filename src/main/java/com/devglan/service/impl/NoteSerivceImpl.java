@@ -53,4 +53,18 @@ public class NoteSerivceImpl  implements NoteService{
         noteDao.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
+
+    @Override
+    public Note update(NoteDto note) {
+        Note currNote = new Note();
+        currNote.setId(note.getId());
+        currNote.setUser_id(note.getUser_id());
+        currNote.setContent(note.getContent());
+        currNote.setPotentialMemberId(note.getPotential_member_id());
+        currNote.setDate_created(note.getDate_created());
+        currNote.setDone(note.getDone());
+        currNote.setStart(note.getStart());
+        currNote.setEnd(note.getEnd());
+        return noteDao.save(currNote);
+    }
 }
