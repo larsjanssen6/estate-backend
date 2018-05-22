@@ -83,6 +83,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	    newUser.setZipcode(user.getZipcode());
 	    newUser.setProfession(user.getProfession());
 		newUser.setInterestdate(user.getInterestdate());
+		newUser.setNumber(user.getNumber());
 
 		return userDao.save(newUser);
     }
@@ -102,7 +103,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		currUser.setZipcode(user.getZipcode());
 		currUser.setProfession(user.getProfession());
 		currUser.setInterestdate(user.getInterestdate());
-
+		currUser.setNumber(user.getNumber());
 		return userDao.save(currUser);
 	}
 

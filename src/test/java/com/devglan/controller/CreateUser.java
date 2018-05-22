@@ -37,19 +37,19 @@ public class CreateUser {
     @Test
     public void register() {
         UserDto userDto = new UserDto();
-        //als je wil mag je dit veranderen
-        userDto.setUsername("User");
-        userDto.setPassword("User");
-        userDto.setRole(Role.Admin);
-        userDto.setAddress("Straatweg 1");
-        userDto.setBirthdate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-        userDto.setCity("Tilburg");
-        userDto.setDate_joined(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-        userDto.setFirst_name("Rick");
-        userDto.setSurname("van Schijndel");
-        userDto.setZipcode("5000");
-        userDto.setProfession("ICT-er");
-        userDto.setInterestdate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-        userService.save(userDto);
+        ////als je wil mag je dit veranderen
+        //userDto.setUsername("User");
+        //userDto.setPassword("User");
+        //userDto.setRole(Role.Admin);
+        //userDto.setAddress("Straatweg 1");
+        //userDto.setBirthdate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        //userDto.setCity("Tilburg");
+        //userDto.setDate_joined(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        //userDto.setFirst_name("Rick");
+        //userDto.setSurname("van Schijndel");
+        //userDto.setZipcode("5000");
+        //userDto.setProfession("ICT-er");
+        //userDto.setInterestdate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        //userService.save(userDto);
     }
 }

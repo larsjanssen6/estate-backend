@@ -17,6 +17,7 @@ public class UserDto {
 	private Date date_joined;
 	private Date birthdate;
 	private Date interestdate;
+	private String number;
 
 	public long getId() {
 		return id;
@@ -125,4 +126,12 @@ public class UserDto {
 	public void setInterestdate(Date interestdate) {
 		this.interestdate = interestdate;
 	}
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 }
