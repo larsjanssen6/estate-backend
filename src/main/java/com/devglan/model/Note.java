@@ -18,6 +18,7 @@ public class Note {
     private Date start;
     @Column
     private Date end;
+    @Lob
     @Column
     private String content;
     @Column
