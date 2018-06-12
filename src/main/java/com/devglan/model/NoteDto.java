@@ -4,9 +4,9 @@ import java.sql.Date;
 
 public class NoteDto {
 
-    private long id;
+    private long note_id;
     private long user_id;
-    private long potential_member_id;
+    private User potential_member_id;
     private Date date_created;
     private String content;
     private Date start;
@@ -14,27 +14,27 @@ public class NoteDto {
     private String done;
 
     public long getId() {
-        return id;
+        return note_id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.note_id = id;
     }
 
     public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
-    }
-
-    public void setPotentialMemberId(long id) {
+    public void setPotentialMemberId(User id) {
         this.potential_member_id = id;
     }
 
-    public long getPotential_member_id() {
+    public User getPotential_member_id() {
         return potential_member_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public Date getDate_created() {
@@ -48,7 +48,6 @@ public class NoteDto {
     public String getContent() {
         return content;
     }
-
 
     public void setContent(String content) {
         this.content = content;

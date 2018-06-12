@@ -73,7 +73,7 @@ public class UserController {
         List<User> users = new ArrayList<>();
         for (Note n:notes
              ) {
-            users.add(userService.findById(n.getPotential_member_id()));
+            users.add(userService.findById(n.getPotential_member_id().getId()));
         }
         return users;
     }

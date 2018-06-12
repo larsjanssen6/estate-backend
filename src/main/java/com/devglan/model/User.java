@@ -3,6 +3,7 @@ package com.devglan.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -40,6 +41,9 @@ public class User {
     private Date interestdate;
     @Column
     private String number;
+
+
+
 
     public long getId() {
         return id;

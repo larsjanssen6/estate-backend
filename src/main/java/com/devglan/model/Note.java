@@ -7,11 +7,11 @@ import java.sql.Date;
 public class Note {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    private long note_id;
     @Column
     private long user_id;
-    @Column
-    private long potential_member_id;
+    @ManyToOne
+    private User potential_member_id;
     @Column
     private Date date_created;
     @Column
@@ -25,22 +25,22 @@ public class Note {
     private String done;
 
     public long getId() {
-        return id;
+        return note_id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.note_id = id;
     }
 
     public long getUser_id() {
         return user_id;
     }
 
-    public void setPotentialMemberId(long id) {
+    public void setPotentialMemberId(User id) {
         this.potential_member_id = id;
     }
 
-    public long getPotential_member_id() {
+    public User getPotential_member_id() {
         return potential_member_id;
     }
 
