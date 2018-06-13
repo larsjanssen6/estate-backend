@@ -43,7 +43,7 @@ public class NoteController {
     }
     @RequestMapping(value = "/allnotes", method = RequestMethod.POST)
     public List<Note> getAllNotes(){
-        return noteService.findAll();
+        return noteService.findAllDone();
     }
 
 
