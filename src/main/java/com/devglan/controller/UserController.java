@@ -26,9 +26,13 @@ public class UserController {
 
     @CrossOrigin
     @RequestMapping(value="/users", method = RequestMethod.GET)
-    public List<User> listUser(){
-        return userService.findAll();
+    public List<User> listMembers(){
+        return userService.findAllMembers();
     }
+
+    @CrossOrigin
+    @RequestMapping(value="/potential-users", method = RequestMethod.GET)
+    public List<User> listPotentialMembers(){ return userService.findAllPotentialMembers(); }
 
     @CrossOrigin
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)

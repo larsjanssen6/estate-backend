@@ -47,6 +47,26 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
+	public List<User> findAllMembers() {
+		List<User> users = new ArrayList<>();
+		for (User u : findAll())
+			if (u.getRole() == Role.Member || u.getRole() == Role.Admin)
+				users.add(u);
+
+		return users;
+	}
+
+	@Override
+	public List<User> findAllPotentialMembers() {
+		List<User> users = new ArrayList<>();
+		for (User u : findAll())
+			if (u.getRole() == Role.PotentialMember)
+				users.add(u);
+
+		return users;
+	}
+
+	@Override
 	public boolean delete(long id) {
 		try {
 			userDao.delete(id);
