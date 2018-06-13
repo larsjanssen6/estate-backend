@@ -10,8 +10,8 @@ public class Note {
     private long id;
     @Column
     private long user_id;
-    @Column
-    private long potential_member_id;
+    @ManyToOne
+    private User potential_member;
     @Column
     private Date date_created;
     @Column
@@ -28,20 +28,20 @@ public class Note {
         return id;
     }
 
+    public User getPotential_member() {
+        return potential_member;
+    }
+
+    public void setPotential_member(User potential_member) {
+        this.potential_member = potential_member;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
 
     public long getUser_id() {
         return user_id;
-    }
-
-    public void setPotentialMemberId(long id) {
-        this.potential_member_id = id;
-    }
-
-    public long getPotential_member_id() {
-        return potential_member_id;
     }
 
     public void setUser_id(long user_id) {
