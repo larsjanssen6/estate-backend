@@ -48,9 +48,9 @@ public class NoteSerivceImpl  implements NoteService{
     }
 
     @Override
-    public List<Note> findAll() {
+    public List<Note> findAllDone() {
         List<Note> list = new ArrayList<>();
-        noteDao.findAll().iterator().forEachRemaining(list::add);
+        noteDao.findNotesByDone().iterator().forEachRemaining(list::add);
         return list;
     }
 

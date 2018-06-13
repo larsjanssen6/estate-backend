@@ -13,8 +13,12 @@ public interface NoteDao extends CrudRepository<Note, Long> {
 
     //List<Note> findNoteByUser_id(long user_id);
 
-    @Query(value ="SELECT * FROM note n where n.user_id = :user_id",
+    @Query(value ="SELECT * FROM note n where n.user_id = :user_id and n.done = 'false'",
     nativeQuery = true)
     List<Note> findNoteByUser_id(@Param("user_id") Long user_id);
+
+    @Query(value ="SELECT * FROM note n where n.done = 'true'",
+            nativeQuery = true)
+    List<Note> findNotesByDone();
 
 }
