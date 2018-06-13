@@ -22,7 +22,8 @@ public class NoteSerivceImpl  implements NoteService{
             Note newNote = new Note();
             newNote.setUser_id(note.getUser_id());
             newNote.setContent(note.getContent());
-            newNote.setPotentialMemberId(note.getPotential_member_id());
+            System.out.println(note.getPotential_member().getUsername());
+            newNote.setPotential_member(note.getPotential_member());
             newNote.setDate_created(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
             newNote.setDone(note.getDone());
             newNote.setStart(note.getStart());
@@ -60,7 +61,7 @@ public class NoteSerivceImpl  implements NoteService{
         currNote.setId(note.getId());
         currNote.setUser_id(note.getUser_id());
         currNote.setContent(note.getContent());
-        currNote.setPotentialMemberId(note.getPotential_member_id());
+        currNote.setPotential_member(note.getPotential_member());
         currNote.setDate_created(note.getDate_created());
         currNote.setDone(note.getDone());
         currNote.setStart(note.getStart());

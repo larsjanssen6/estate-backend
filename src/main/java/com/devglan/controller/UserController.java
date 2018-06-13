@@ -1,10 +1,8 @@
 package com.devglan.controller;
 
-import com.devglan.model.Note;
 import com.devglan.model.Role;
 import com.devglan.model.User;
 import com.devglan.model.UserDto;
-import com.devglan.service.NoteService;
 import com.devglan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +19,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private NoteService noteService;
 
     @CrossOrigin
     @RequestMapping(value="/users", method = RequestMethod.GET)
@@ -65,18 +61,7 @@ public class UserController {
         return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/users/notes", method = RequestMethod.POST)
-    public List<User> getAllUsersForNotes(){
-        long userid = userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
-        List<Note> notes = noteService.getNotes(userid);
-        List<User> users = new ArrayList<>();
-        for (Note n:notes
-             ) {
-            users.add(userService.findById(n.getPotential_member_id().getId()));
-        }
-        return users;
-    }
+
 
     @CrossOrigin
     @RequestMapping(value="/signup", method = RequestMethod.POST)
