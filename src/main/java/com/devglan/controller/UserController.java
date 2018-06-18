@@ -1,10 +1,8 @@
 package com.devglan.controller;
 
-import com.devglan.model.Note;
 import com.devglan.model.Role;
 import com.devglan.model.User;
 import com.devglan.model.UserDto;
-import com.devglan.service.NoteService;
 import com.devglan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,9 +17,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private NoteService noteService;
 
     @CrossOrigin
     @RequestMapping(value="/users", method = RequestMethod.GET)
@@ -72,19 +66,6 @@ public class UserController {
     @RequestMapping(value="/user", method = RequestMethod.GET)
     public User getUserLoggedIn(){
         return userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "/users/notes", method = RequestMethod.POST)
-    public List<User> getAllUsersForNotes(){
-        long userid = userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
-        List<Note> notes = noteService.getNotes(userid);
-        List<User> users = new ArrayList<>();
-        for (Note n:notes
-             ) {
-            users.add(userService.findById(n.getPotential_member_id()));
-        }
-        return users;
     }
 
     @CrossOrigin

@@ -49,7 +49,7 @@ public class CreateUser {
         //userDto.setSurname("van Schijndel");
         //userDto.setZipcode("5000");
         //userDto.setProfession("ICT-er");
-        //userDto.getNumber("0600000000");
+        //userDto.setNumber("0600000000");
         //userDto.setInterestdate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         //userService.save(userDto);
     }
