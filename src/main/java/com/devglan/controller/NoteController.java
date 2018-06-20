@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -29,6 +30,13 @@ public class NoteController {
     @CrossOrigin
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Note update(@RequestBody NoteDto note){
+        return noteService.update(note);
+    }
+    @CrossOrigin
+    @RequestMapping(value = "/done", method = RequestMethod.POST)
+    public Note doneNote(@RequestBody NoteDto note){
+        note.setDone("Ja");
+        note.setEnd(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         return noteService.update(note);
     }
 
