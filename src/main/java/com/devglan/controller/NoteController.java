@@ -45,6 +45,4 @@ public class NoteController {
     public List<Note> getAllNotes(){
         return noteService.findAll();
     }
-
-
 }

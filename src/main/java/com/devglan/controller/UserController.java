@@ -64,5 +64,4 @@ public class UserController {
     public User saveUser(@RequestBody UserDto user){
         return userService.save(user);
     }
-
 }
