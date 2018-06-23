@@ -40,6 +40,13 @@ public class NoteController {
         return noteService.update(note);
     }
 
+    @RequestMapping(value = "/reopen", method = RequestMethod.POST)
+    public Note reopenNote(@RequestBody NoteDto note){
+        note.setDone("False");
+        note.setEnd(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        return noteService.update(note);
+    }
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public boolean deleteNote(@PathVariable (value = "id")long noteId){
         return noteService.delete(noteId);
