@@ -20,9 +20,13 @@ public class UserController {
 
     @CrossOrigin
     @RequestMapping(value="/users", method = RequestMethod.GET)
-    public List<User> listUser(){
-        return userService.findAll();
+    public List<User> listMembers(){
+        return userService.findAllMembers();
     }
+
+    @CrossOrigin
+    @RequestMapping(value="/potential-users", method = RequestMethod.GET)
+    public List<User> listPotentialMembers(){ return userService.findAllPotentialMembers(); }
 
     @CrossOrigin
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
@@ -43,10 +47,15 @@ public class UserController {
     @CrossOrigin
     @RequestMapping(value = "/users/promoteuser", method = RequestMethod.POST)
     public ResponseEntity<?> promoteUser(@RequestBody UserDto user) {
-        if(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString() == "Admin"){
-            userService.removeAdmin(SecurityContextHolder.getContext().getAuthentication().getName());
-            user.setRole(Role.Admin);
+        if(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString().equals("Admin")){
+            if (user.getRole() == Role.Member) {
+                userService.removeAdmin(SecurityContextHolder.getContext().getAuthentication().getName());
+                user.setRole(Role.Admin);
+            } else if (user.getRole() == Role.PotentialMember) {
+                user.setRole(Role.Member);
+            }
             return ResponseEntity.status(HttpStatus.OK).body(userService.update(user));
+
         }
         else{
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
